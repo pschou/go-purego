@@ -10,6 +10,11 @@ TEXT dlopen(SB), NOSPLIT|NOFRAME, $0-0
 	JMP purego_dlopen(SB)
 	RET
 
+// func dlmopen(lmid uint, path *byte, mode int) (ret uintptr)
+TEXT dlmopen(SB), NOSPLIT|NOFRAME, $0-0
+	JMP purego_dlmopen(SB)
+	RET
+
 // func dlsym(handle uintptr, symbol *byte) (ret uintptr)
 TEXT dlsym(SB), NOSPLIT|NOFRAME, $0-0
 	JMP purego_dlsym(SB)

@@ -9,6 +9,7 @@ package purego
 // then the functions are called inside dlfcn_stubs.s
 
 //go:cgo_import_dynamic purego_dlopen dlopen "libdl.so.2"
+//go:cgo_import_dynamic purego_dlmopen dlmopen "libdl.so.2"
 //go:cgo_import_dynamic purego_dlsym dlsym "libdl.so.2"
 //go:cgo_import_dynamic purego_dlerror dlerror "libdl.so.2"
 //go:cgo_import_dynamic purego_dlclose dlclose "libdl.so.2"

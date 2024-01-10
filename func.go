@@ -298,9 +298,9 @@ func numOfIntegerRegisters() int {
 		return 8
 	case "amd64":
 		return 6
-	// TODO: figure out why 386 tests are not working
-	/*case "386":
+	case "386":
 		return 0
+	/*// TODO: test if arm is working
 	case "arm":
 		return 4*/
 	default:
