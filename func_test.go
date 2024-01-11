@@ -9,7 +9,7 @@ import (
 	"testing"
 	"unsafe"
 
-	"github.com/ebitengine/purego"
+	"github.com/pschou/go-purego"
 )
 
 // This is an internal OS-dependent function for getting the handle to a library

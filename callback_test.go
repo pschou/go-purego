@@ -11,7 +11,7 @@ import (
 	"testing"
 	"unsafe"
 
-	"github.com/ebitengine/purego"
+	"github.com/pschou/go-purego"
 )
 
 // TestCallGoFromSharedLib is a test that checks for stack corruption on arm64

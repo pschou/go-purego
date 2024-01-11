@@ -44,7 +44,7 @@ import (
 	"fmt"
 	"runtime"
 
-	"github.com/ebitengine/purego"
+	"github.com/pschou/go-purego"
 )
 
 func getSystemLibrary() string {
