@@ -17,7 +17,7 @@ var (
 	fnDlsym      func(handle uintptr, name string) uintptr
 	fnDlerror    func() string
 	fnDlclose    func(handle uintptr) bool
-	fnDlinfoLmid func(handle uintptr, request int, lmid *LMID) int
+	fnDlinfoLmid func(handle uintptr, request int, lmid *int) int
 )
 
 func init() {
@@ -60,12 +60,12 @@ func Dlmopen(lmid LMID, path string, mode int) (uintptr, error) {
 // to load additional libraries into the namespace of this loaded library.
 // Note that GCC limits the total number of namespaces to 16.
 func DlinfoLMID(handle uintptr) (LMID, error) {
-	var lmid LMID
+	var lmid int
 	u := fnDlinfoLmid(handle, RTLD_DI_LMID, &lmid)
 	if u == 0 {
 		return 0, Dlerror{fnDlerror()}
 	}
-	return lmid, nil
+	return LMID(lmid), nil
 }
 
 // Dlopen examines the dynamic library or bundle file specified by path. If the file is compatible
