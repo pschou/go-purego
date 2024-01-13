@@ -60,8 +60,9 @@ func Dlmopen(lmid int32, path string, mode int) (uintptr, error) {
 // Note that GCC limits the total number of namespaces to 16.
 func DlinfoLMID(handle uintptr) (int32, error) {
 	var lmid = int32(0)
-	fmt.Printf("handle %v req %v lmid %v\n", handle, RTLD_DI_LMID, uintptr(unsafe.Pointer(&lmid)))
+	fmt.Printf("handle %v req %v lmid %v lmid_ptr %v\n", handle, RTLD_DI_LMID, lmid, uintptr(unsafe.Pointer(&lmid)))
 	u := fnDlinfoLmid(handle, RTLD_DI_LMID, uintptr(unsafe.Pointer(&lmid)))
+	fmt.Printf("return u %v lmid %v\n", u, lmid)
 	if u == 0 {
 		return 0, Dlerror{fnDlerror()}
 	}
