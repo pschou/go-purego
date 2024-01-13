@@ -17,7 +17,7 @@ var (
 	fnDlsym      func(handle uintptr, name string) uintptr
 	fnDlerror    func() string
 	fnDlclose    func(handle uintptr) bool
-	fnDlinfoLmid func(handle uintptr, request int, lmid unsafe.Pointer) int
+	fnDlinfoLmid func(handle uintptr, request int32, lmid uintptr) int
 )
 
 func init() {
@@ -60,7 +60,7 @@ func Dlmopen(lmid LMID, path string, mode int) (uintptr, error) {
 // to load additional libraries into the namespace of this loaded library.
 // Note that GCC limits the total number of namespaces to 16.
 func DlinfoLMID(handle uintptr) (lmid LMID, err error) {
-	u := fnDlinfoLmid(handle, RTLD_DI_LMID, unsafe.Pointer(&lmid))
+	u := fnDlinfoLmid(handle, RTLD_DI_LMID, uintptr(unsafe.Pointer(&lmid)))
 	if u == 0 {
 		err = Dlerror{fnDlerror()}
 	}
