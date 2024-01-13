@@ -15,8 +15,8 @@ const (
 	RTLD_NOLOAD   = 0x00004 // Do not load the object.
 	RTLD_DEEPBIND = 0x00008 // Use deep binding.
 
-	LM_ID_BASE  = LMID(0)  // Initial namespace.
-	LM_ID_NEWLM = LMID(-1) // For dlmopen: request new namespace.
+	LM_ID_BASE  = 0  // Initial namespace.
+	LM_ID_NEWLM = -1 // For dlmopen: request new namespace.
 
 	RTLD_DI_LMID = 1 // Get namespace ID for HANDLE.
 )

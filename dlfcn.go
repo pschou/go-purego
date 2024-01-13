@@ -13,11 +13,11 @@ import (
 
 var (
 	fnDlopen     func(path string, mode int) uintptr
-	fnDlmopen    func(lmid LMID, path string, mode int) uintptr
+	fnDlmopen    func(lmid int32, path string, mode int) uintptr
 	fnDlsym      func(handle uintptr, name string) uintptr
 	fnDlerror    func() string
 	fnDlclose    func(handle uintptr) bool
-	fnDlinfoLmid func(handle uintptr, request int32, lmid unsafe.Pointer) int
+	fnDlinfoLmid func(handle uintptr, request int, lmid uintptr) int
 )
 
 func init() {
@@ -28,8 +28,6 @@ func init() {
 	RegisterFunc(&fnDlclose, dlcloseABI0)
 	RegisterFunc(&fnDlinfoLmid, dlinfoABI0)
 }
-
-type LMID int32
 
 // Dlmopen examines the dynamic library or bundle file specified by path. If the file is compatible
 // with the current process and has not already been loaded into the
@@ -47,7 +45,7 @@ type LMID int32
 // be loaded into this namespace.  As like Dlopen, reference count will be
 // incremented for each call to Dlmopen.  Therefore, all Dlmopen calls should
 // be balanced with a Dlclose call.
-func Dlmopen(lmid LMID, path string, mode int) (uintptr, error) {
+func Dlmopen(lmid int32, path string, mode int) (uintptr, error) {
 	u := fnDlmopen(lmid, path, mode)
 	if u == 0 {
 		return 0, Dlerror{fnDlerror()}
@@ -59,9 +57,9 @@ func Dlmopen(lmid LMID, path string, mode int) (uintptr, error) {
 // dynamically loaded object referred to by handle.  This is used with Dlmopen
 // to load additional libraries into the namespace of this loaded library.
 // Note that GCC limits the total number of namespaces to 16.
-func DlinfoLMID(handle uintptr) (LMID, error) {
-	var lmid LMID
-	u := fnDlinfoLmid(handle, RTLD_DI_LMID, unsafe.Pointer(&lmid))
+func DlinfoLMID(handle uintptr) (int32, error) {
+	var lmid int32
+	u := fnDlinfoLmid(handle, RTLD_DI_LMID, uintptr(unsafe.Pointer(&lmid)))
 	if u == 0 {
 		return 0, Dlerror{fnDlerror()}
 	}
